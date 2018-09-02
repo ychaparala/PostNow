@@ -1,0 +1,46 @@
+// These rules grant access to a node matching the authenticated
+// user's ID from the Firebase auth token
+{
+    "rules": {
+        "app": {
+            "publisher": {
+                "$uid": {
+                    ".read": "$uid === auth.uid",
+                    ".write": "$uid === auth.uid"
+                }
+            },
+            "subscriber": {
+                "$uid": {
+                    ".read": "$uid === auth.uid",
+                    ".write": "$uid === auth.uid"
+                }
+            },
+            "geofire": {
+                "publisher": {
+                    ".read": false,
+                    ".write": "auth != null",
+                    ".indexOn": "g"
+                },
+                "subscriber": {
+                    ".read": false,
+                    ".write": "auth != null",
+                    ".indexOn": "g"
+                }
+            },
+            "deleted": {
+                "publisher": {
+                    "$uid": {
+                        ".read": false,
+                        ".write": "$uid === auth.uid"
+                    }
+                },
+                "subscriber": {
+                    "$uid": {
+                        ".read": false,
+                        ".write": "$uid === auth.uid"
+                    }
+                }
+            }
+        }
+    }
+}
