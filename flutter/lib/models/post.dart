@@ -1,26 +1,41 @@
-import 'package:flutter/material.dart';
-class MyPost{
-  final String category;
-  final String type;
-  final String title;
-  final String description;
-  final bool followme;
-  final Map<double,double> geotag;
-  final bool hasImage;
-  final String featureImageURL;
-  final bool hasGeoTag;
-  final int datetime;
+class MyPost {
+  String category;
+  String type;
+  String title;
+  String description;
+  bool followme;
+  // Map<double,double> geotag;
+  // bool hasImage;
+  // String featureImageURL;
+  // bool hasGeoTag;
+  // int datetime;
 
   MyPost({
-    @required this.category,
-    @required this.type,
-    @required this.title,
-    @required this.description,
-    @required this.followme,
-    this.geotag,
-    @required this.hasImage,
-    this.featureImageURL,
-    @required this.hasGeoTag,
-    @required this.datetime,
+    this.category,
+    this.type,
+    this.title,
+    this.description,
+    this.followme = false,
+    // this.geotag,
+    // @required this.hasImage,
+    // this.featureImageURL,
+    // @required this.hasGeoTag,
+    // @required this.datetime,
   });
+
+  MyPost.fromJson(Map<String, dynamic> json)
+      : category = json['category'],
+        type = json['type'],
+        title = json['title'],
+        description = json['description'],
+        followme = json['followme'];
+
+  Map toJson(){ return {
+        'category': category,
+        'type': type,
+        'title': title,
+        'description': description,
+        'followme': followme,
+      };
+  }
 }

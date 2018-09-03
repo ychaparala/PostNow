@@ -8,7 +8,7 @@ class AppFab extends StatefulWidget {
 
 class _AppFabState extends State<AppFab> with TickerProviderStateMixin{
   AnimationController _controller;
-  static const List<IconData> icons = const [ Icons.shopping_cart, Icons.restaurant, ];
+  static const List<IconData> icons = const [ Icons.restaurant,Icons.shopping_cart, ];
   static const List<String> nav = const ["/AddPublisherPage","/AddSubscriberPage",];
 
   @override

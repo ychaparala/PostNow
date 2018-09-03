@@ -22,6 +22,7 @@ dependencies:
   firebase_core: ^0.2.5
   firebase_auth: ^0.5.19
   firebase_database: ^1.0.4
+  convert: ^2.0.2
 
 dev_dependencies:
   flutter_test:
