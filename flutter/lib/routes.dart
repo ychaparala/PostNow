@@ -5,6 +5,7 @@ import 'package:first_app/pages/search.dart';
 import 'package:first_app/pages/settings.dart';
 import 'package:first_app/pages/add_publisher.dart';
 import 'package:first_app/pages/add_subscriber.dart';
+import 'package:first_app/pages/posts.dart';
 
 class Routes {
 
@@ -15,6 +16,7 @@ class Routes {
     "/SettingsPage": (BuildContext context) => new SettingsPage(),
     "/AddPublisherPage": (BuildContext context) => new AddPublisherPage(),
     "/AddSubscriberPage": (BuildContext context) => new AddSubscriberPage(),
+    "/PostsPage": (BuildContext context) => new PostsPage(),
   };
 
   Routes() {

@@ -22,6 +22,15 @@ class AppDrawer extends StatelessWidget {
               },
             ),
             ListTile(
+              title: Text('Posts'),
+              leading: Icon(Icons.search),
+              onTap: () {
+                // Navigator.pushNamed(context, "/SearchPage");
+                Navigator.of(context).pushNamed("/PostsPage");
+                // Navigator.pop(context);
+              },
+            ),
+            ListTile(
               title: Text('Search'),
               leading: Icon(Icons.search),
               onTap: () {

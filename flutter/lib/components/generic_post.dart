@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:first_app/models/post.dart';
-import 'dart:convert';
+import 'package:first_app/services/firebase.dart';
 
 class GenericPost extends StatefulWidget {
   final String type;
@@ -12,12 +12,13 @@ class GenericPost extends StatefulWidget {
 class _GenericPostState extends State<GenericPost> {
   final formKey = new GlobalKey<FormState>();
   MyPost post = new MyPost();
+  Firebase fire = new Firebase();
 
   void _submitPost(){
     if(formKey.currentState.validate()){
       formKey.currentState.save();
       post.type = widget.type;
-      String json = jsonEncode(post);
+      fire.pushData(post.type,post);
     }
   }
 
