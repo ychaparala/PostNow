@@ -60,7 +60,7 @@ app.use(cors);
 app.use(cookieParser);
 app.use(validateFirebaseIdToken);
 //Search Results
-app.get('/geoFireNotification', (req, res) => {
+app.get('/geoFireSearch', (req, res) => {
   const lat = parseFloat(req.query.lat);
   const lng = parseFloat(req.query.lng);
   const rad = parseFloat(req.query.rad);
@@ -76,9 +76,9 @@ app.get('/geoFireNotification', (req, res) => {
     radius: rad //kilometers
   }).on('key_entered', (key, location, distance) => {
     if (key.split('!!')[0] !== uid) {
-      appPub.child(key.split('!!')[0]).child(key.split('!!')[1]).on('value', function (snap) {
-        result.push({ key: key, post: snap.toJSON() });
-      });
+      appPub.child(key.split('!!')[0]).child(key.split('!!')[1]).on('value', (snap) =>
+        result.push({ key: key, post: snap.toJSON() })
+      );
     }
   });
   geofireSubRef.query({
@@ -86,13 +86,25 @@ app.get('/geoFireNotification', (req, res) => {
     radius: rad //kilometers
   }).on('key_entered', (key, location, distance) => {
     if (key.split('!!')[0] !== uid) {
-      appSub.child(key.split('!!')[0]).child(key.split('!!')[1]).on('value', function (snap) {
-        result.push({ key: key, post: snap.toJSON() });
-      });
+      appSub.child(key.split('!!')[0]).child(key.split('!!')[1]).on('value', (snap) =>
+        result.push({ key: key, post: snap.toJSON() })
+      );
     }
   });
   res.setHeader('Content-Type', 'application/json');
   res.send(result);
+});
+// GeoFire Insert
+app.get('/geoFireInsert', (req, res) => {
+  const lat = parseFloat(req.query.lat);
+  const lng = parseFloat(req.query.lng);
+  const category = (req.query.category);
+  const type = (req.query.type);
+  const key = (req.query.key);
+  const coords = [lat,lng]
+  const geofireRef = new GeoFire(admin.database().ref('app/geofire').child(type).child(category));
+  geofireRef.set(key,coords);
+  res.send('Success');
 });
 // List of Categories
 app.get('/listcategories', (req, res) => {
