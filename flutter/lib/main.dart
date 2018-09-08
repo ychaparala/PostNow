@@ -20,8 +20,6 @@ Future<FirebaseUser> _signInAnonymously() async {
 }
 
 void main() async {
-  FirebaseUser user;
-  user = await _signInAnonymously();
-  print(user);
+  await _signInAnonymously();
   new Routes();
 }

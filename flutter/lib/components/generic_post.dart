@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:first_app/models/post.dart';
 import 'package:first_app/services/firebase.dart';
+import 'package:location/location.dart';
 
 class GenericPost extends StatefulWidget {
   final String type;
@@ -13,10 +14,14 @@ class _GenericPostState extends State<GenericPost> {
   final formKey = new GlobalKey<FormState>();
   MyPost post = new MyPost();
   Firebase fire = new Firebase();
-
-  void _submitPost(){
+  var currentLocation = <String, double>{};
+  var location = new Location();
+  
+  void _submitPost() async{
     if(formKey.currentState.validate()){
       formKey.currentState.save();
+      currentLocation = await location.getLocation();
+      post.location = currentLocation;
       post.type = widget.type;
       fire.pushData(post.type,post);
     }

@@ -1,12 +1,6 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const GeoFire = require('geofire');
-// const serviceAccount = require('../../postnow-faa46-firebase-adminsdk-vdgtv-47284c4892.json');
-
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount),
-//   databaseURL: "https://postnow-faa46.firebaseio.com"
-// });
 
 admin.initializeApp(functions.config().firebase);
 
@@ -95,12 +89,12 @@ app.get('/geoFireSearch', (req, res) => {
   res.send(result);
 });
 // GeoFire Insert
-app.get('/geoFireInsert', (req, res) => {
-  const lat = parseFloat(req.query.lat);
-  const lng = parseFloat(req.query.lng);
-  const category = (req.query.category);
-  const type = (req.query.type);
-  const key = (req.query.key);
+app.post('/geoFireInsert', (req, res) => {
+  const lat = parseFloat(req.body['lat']);
+  const lng = parseFloat(req.body['lng']);
+  const category = req.body['category'];
+  const type = req.body['type'];
+  const key = req.body['key'];
   const coords = [lat,lng]
   const geofireRef = new GeoFire(admin.database().ref('app/geofire').child(type).child(category));
   geofireRef.set(key,coords);

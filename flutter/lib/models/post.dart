@@ -7,7 +7,7 @@ class MyPost {
   String title;
   String description;
   bool followme;
-  // Map<double,double> geotag;
+  Map<String, double> location;
   // bool hasImage;
   // String featureImageURL;
   // bool hasGeoTag;
@@ -19,6 +19,7 @@ class MyPost {
     this.title,
     this.description,
     this.followme = false,
+    this.location,
     // this.geotag,
     // @required this.hasImage,
     // this.featureImageURL,
@@ -32,7 +33,8 @@ class MyPost {
         type = snapshot.value["type"],
         title = snapshot.value["title"],
         description = snapshot.value["description"],
-        followme = snapshot.value["followme"];
+        followme = snapshot.value["followme"],
+        location = snapshot.value["location"];
 
 
   MyPost.fromJson(Map<String, dynamic> json)
@@ -40,7 +42,8 @@ class MyPost {
         type = json['type'],
         title = json['title'],
         description = json['description'],
-        followme = json['followme'];
+        followme = json['followme'],
+        location = json["location"];
 
   Map toJson(){ return {
         'category': category,
@@ -48,6 +51,7 @@ class MyPost {
         'title': title,
         'description': description,
         'followme': followme,
+        'location': location,
       };
   }
 }
