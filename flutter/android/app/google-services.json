@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "417461545591",
+    "firebase_url": "https://postnow-faa46.firebaseio.com",
+    "project_id": "postnow-faa46",
+    "storage_bucket": "postnow-faa46.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:417461545591:android:4b27071f992a7381",
+        "android_client_info": {
+          "package_name": "com.example.firstapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "417461545591-osjuh3dm6rdaa1k1lu06e9bcovm2i1b8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDi0F8tZ2CCbyT1RAxFC4YnPlwocHWwnRI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
