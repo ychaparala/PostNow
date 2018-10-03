@@ -1,15 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:first_app/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:first_app/models/post.dart';
 import 'package:first_app/components/drawer.dart';
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseDatabase database = new FirebaseDatabase();
 
-
 class PostsPage extends StatefulWidget {
- 
   @override
   _PostsPageState createState() => _PostsPageState();
 }
@@ -17,30 +14,36 @@ class PostsPage extends StatefulWidget {
 class _PostsPageState extends State<PostsPage> {
   List<MyPost> posts = new List();
   ScrollController _listViewScrollController = new ScrollController();
-  FirebaseUser user;
 
   _getPosts() async {
-    await _auth.currentUser().then((firebaseUser) {
-      user = firebaseUser;
-    });
-    database.reference().child('app').child('publisher').child(user.uid).onChildAdded.listen(_onEntryAdded);
-    database.reference().child('app').child('subscriber').child(user.uid).onChildAdded.listen(_onEntryAdded);
+    database
+        .reference()
+        .child('app')
+        .child('publisher')
+        .child(globalUser.uid)
+        .onChildAdded
+        .listen(_onEntryAdded);
+    database
+        .reference()
+        .child('app')
+        .child('subscriber')
+        .child(globalUser.uid)
+        .onChildAdded
+        .listen(_onEntryAdded);
   }
 
-  _PostsPageState(){
+  _PostsPageState() {
     _getPosts();
-    }
+  }
 
   _onEntryAdded(Event event) {
     setState(() {
-      posts.add(new MyPost.fromSnapshot(event.snapshot));
-      posts.map((MyPost post){
-        print(post.title);
-      });
+      posts.add(new MyPost.fromJson(
+          new Map<String, dynamic>.from(event.snapshot.value)));
     });
   }
 
-Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('Posts'),
@@ -51,13 +54,21 @@ Widget build(BuildContext context) {
         controller: _listViewScrollController,
         itemCount: posts.length,
         itemBuilder: (buildContext, index) {
-          //calculating difference
-          print(index);
-          print(posts[index].title);
-          new Text(posts[index].title);
-          // return new InkWell(
-          //     // onTap: () => _openEditEntryDialog(posts[index]),
-          //     child: new WeightListItem(posts[index], difference));
+          return new Card(
+            child: new Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                new ListTile(
+                  // leading: new Icon(Icons.album),
+                  leading: new Image.network(
+                      "https://media.wired.com/photos/59bafdf204afdc5248726f5c/master/w_1164,c_limit/BMW-TA.jpg",
+                      height: 60.0),
+                  title: new Text(posts[index].title),
+                  subtitle: new Text(posts[index].description),
+                ),
+              ],
+            ),
+          );
         },
       ),
       drawer: new AppDrawer(),

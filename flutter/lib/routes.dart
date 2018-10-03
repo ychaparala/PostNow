@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:first_app/pages/chart.dart';
+import 'package:first_app/pages/chat.dart';
 import 'package:first_app/pages/home.dart';
 import 'package:first_app/pages/search.dart';
 import 'package:first_app/pages/settings.dart';

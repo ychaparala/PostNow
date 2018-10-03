@@ -1,30 +1,26 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:first_app/models/chat.dart';
 import 'package:first_app/models/post.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:first_app/globals.dart';
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseDatabase database = new FirebaseDatabase();
 
 class Firebase {
-  FirebaseUser user;
   String token;
   Firebase() {
     _getUser();
   }
 
   _getUser() async {
-    await _auth.currentUser().then((firebaseUser) async{
-      user = firebaseUser;
-      await firebaseUser.getIdToken().then((userToken) => token=userToken);
-    });
+    await globalUser.getIdToken().then((userToken) => token=userToken);
   }
 
   pushData(String type, MyPost post) {
     // Push Data into Firebase
     var firebaseRef =
-        database.reference().child('app').child(type).child(user.uid).push();
+        database.reference().child('app').child(type).child(globalUser.uid).push();
     var key = firebaseRef.key;
     firebaseRef.set(post.toJson());
     // Push Data into Geo Fire
@@ -35,13 +31,20 @@ class Firebase {
       "lng": "${post.location["longitude"]}",
       "category": "${post.category}",
       "type": "${post.type}",
-      "key": "${user.uid}!!$key"
+      "key": "${globalUser.uid}!!$key"
     });
     var headers = {"Authorization": "Bearer $token", "Content-Type": "application/json"};
     http.post(url, body: body, headers: headers).then((response) {
       print("Response status: ${response.statusCode}");
       print("Response body: ${response.body}");
     });
+  }
+
+  pushChat(MyChat chat) {
+    // Push Data into Firebase
+    var firebaseRef =
+        database.reference().child('app').child('chat/HqpUsmoAUjO10zFjRS1wuT23My02!!QMEIhmPJURfiQ7VEc0uxrnxc0Qk2').push();
+    firebaseRef.set(chat.toJson());
   }
 
   deletePost(MyPost post, String type, String postkey) {
@@ -51,7 +54,7 @@ class Firebase {
         .child('app')
         .child('deleted')
         .child(type)
-        .child(user.uid)
+        .child(globalUser.uid)
         .push()
         .set(post.toJson());
     
@@ -61,7 +64,7 @@ class Firebase {
         .child('geofire')
         .child(type)
         .child(post.category)
-        .child('${user.uid}!!$postkey')
+        .child('${globalUser.uid}!!$postkey')
         .remove();
 
     // Delete Post from Actual Node
@@ -69,7 +72,7 @@ class Firebase {
         .reference()
         .child('app')
         .child(type)
-        .child(user.uid)
+        .child(globalUser.uid)
         .child(postkey)
         .remove();
   }

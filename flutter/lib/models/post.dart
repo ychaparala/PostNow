@@ -7,7 +7,7 @@ class MyPost {
   String title;
   String description;
   bool followme;
-  Map<String, double> location;
+  Map<dynamic,dynamic> location;
   // bool hasImage;
   // String featureImageURL;
   // bool hasGeoTag;
@@ -33,8 +33,8 @@ class MyPost {
         type = snapshot.value["type"],
         title = snapshot.value["title"],
         description = snapshot.value["description"],
-        followme = snapshot.value["followme"],
-        location = snapshot.value["location"];
+        followme = snapshot.value["followme"];
+        // location = snapshot.value["location"];
 
 
   MyPost.fromJson(Map<String, dynamic> json)

@@ -9,6 +9,10 @@
                     ".write": "$uid === auth.uid"
                 }
             },
+             "chat": {
+                    ".read": true,
+                    ".write": true
+            },
             "subscriber": {
                 "$uid": {
                     ".read": "$uid === auth.uid",
