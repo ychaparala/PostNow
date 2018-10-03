@@ -1,5 +1,3 @@
-import 'package:firebase_database/firebase_database.dart';
-
 class MyPost {
   String key;
   String category;
@@ -26,16 +24,6 @@ class MyPost {
     // @required this.hasGeoTag,
     // @required this.datetime,
   });
-
-  MyPost.fromSnapshot(DataSnapshot snapshot)
-      : key = snapshot.key,
-        category = snapshot.value["category"],
-        type = snapshot.value["type"],
-        title = snapshot.value["title"],
-        description = snapshot.value["description"],
-        followme = snapshot.value["followme"];
-        // location = snapshot.value["location"];
-
 
   MyPost.fromJson(Map<String, dynamic> json)
       : category = json['category'],

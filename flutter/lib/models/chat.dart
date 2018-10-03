@@ -1,5 +1,3 @@
-import 'package:firebase_database/firebase_database.dart';
-
 class MyChat {
   String key;
   String message;
@@ -12,13 +10,6 @@ class MyChat {
     this.time,
     this.uid
   });
-
-  MyChat.fromSnapshot(DataSnapshot snapshot)
-      : key = snapshot.key,
-        message = snapshot.value["message"],
-        time = snapshot.value["time"],
-        uid = snapshot.value["uid"];
-
 
   MyChat.fromJson(Map<String, dynamic> json)
       : key = json['key'],
