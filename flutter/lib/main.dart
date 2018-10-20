@@ -3,8 +3,10 @@ import 'package:first_app/routes.dart';
 import 'dart:async';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:first_app/globals.dart';
+import 'package:location/location.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
+var location = new Location();
 
 Future<FirebaseUser> _signInAnonymously() async {
   FirebaseUser user;
@@ -22,8 +24,13 @@ Future<FirebaseUser> _signInAnonymously() async {
   return user;
 }
 
+  _getlocation() async {
+    await location.getLocation().then((result) => currentLocation= result);
+  }
+
 void main() async {
   await _signInAnonymously();
+  await _getlocation();
   FirebaseDatabase.instance.setPersistenceEnabled(true);
   new Routes();
 }

@@ -29,6 +29,9 @@ class Routes {
         primaryColor: Colors.lightBlue[800],
         accentColor: Colors.cyan[600],
         // textSelectionColor: Colors.green,
+        // textTheme: TextTheme(
+        //   body1: new TextStyle(color: Colors.red),
+        // ),
       ),
       routes: routes,
     ));

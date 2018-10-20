@@ -21,7 +21,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
     database
         .reference()
         .child(
-            'app/chat/HqpUsmoAUjO10zFjRS1wuT23My02!!QMEIhmPJURfiQ7VEc0uxrnxc0Qk2')
+            'app/chat/eMew2WXM7jbrldlh4MjT29TcqKO2!!quiwSufuKOdfIVc71ndZe1ispr02')
         .onChildAdded
         .listen(_onEntryAdded);
   }
